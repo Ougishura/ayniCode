@@ -3,13 +3,13 @@
     'use strict';
 
     angular
-        .module('fuse')
+        .module('fuse',["firebase"])
         .config(config);
 
     /** @ngInject */
     function config()
     {
-        // Put your custom configurations here
+
     }
 
 })();
