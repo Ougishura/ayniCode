@@ -43,13 +43,13 @@
         });
 
         msNavigationServiceProvider.saveItem('fuse.sample', {
-            title    : 'Sample',
+            title    : 'Sampleeee',
             icon     : 'icon-tile-four',
             state    : 'app.sample',
             /*stateParams: {
                 'param1': 'page'
              },*/
-            translate: 'SAMPLE.SAMPLE_NAV',
+            translate: 'sammm',
             weight   : 1
         });
     }

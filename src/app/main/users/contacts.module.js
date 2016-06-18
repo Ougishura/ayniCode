@@ -31,15 +31,15 @@
         });
 
         // Translation
-        $translatePartialLoaderProvider.addPart('app/main/contacts');
+        $translatePartialLoaderProvider.addPart('app/main/users');
 
         // Api
         msApiProvider.register('contacts.contacts', ['app/data/contacts/contacts.json']);
         msApiProvider.register('contacts.user', ['app/data/contacts/user.json']);
 
         // Navigation
-        msNavigationServiceProvider.saveItem('apps.contacts', {
-            title : 'Contacts',
+        msNavigationServiceProvider.saveItem('fuse.contacts', {
+            title : 'USUARIOS',
             icon  : 'icon-account-box',
             state : 'app.contacts',
             weight: 10

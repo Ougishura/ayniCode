@@ -7,12 +7,15 @@
         .controller('ContactsController', ContactsController);
 
     /** @ngInject */
-    function ContactsController($scope, $mdSidenav, Contacts, User, msUtils, $mdDialog, $document)
+    function ContactsController($scope, $mdSidenav, Contacts, User, msUtils, $mdDialog, $document,pharmacyFactory,$firebaseArray)
     {
 
         var vm = this;
 
         // Data
+        vm.test;
+        vm.roles;
+        vm.users;
         vm.contacts = Contacts.data;
         vm.user = User.data;
         vm.filterIds = null;
@@ -44,6 +47,19 @@
          * Change Contacts List Filter
          * @param type
          */
+
+        vm.test =  $firebaseArray(pharmacyFactory.ref.child("users"));
+
+        vm.roles = $firebaseArray(pharmacyFactory.ref.child("roles").child("users"));
+        vm.roles.$loaded().then(function (roles) {
+          console.log(roles);
+        });
+
+
+
+
+
+
         function filterChange(type)
         {
 

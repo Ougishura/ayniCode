@@ -93,7 +93,7 @@
         <!-- SIDENAV -->
         <md-sidenav class="sidenav main-sidenav md-white-bg" ms-scroll md-is-locked-open="$mdMedia('gt-md')"
                     md-component-id="sidenav"
-                    ms-sidenav-helper ng-include="'app/main/apps/contacts/sidenavs/main/main-sidenav.html'">
+                    ms-sidenav-helper ng-include="'app/main/users/sidenavs/main/main-sidenav.html'">
         </md-sidenav>
         <!-- / SIDENAV -->
 
@@ -198,7 +198,7 @@
 
                 <!-- CONTACT ITEM -->
                 <md-list-item class="contact-item md-white-bg" md-ink-ripple
-                              ng-repeat="contact in vm.contacts | filter: vm.search | filter: global.search | filterByIds:vm.filterIds |  orderBy: vm.listOrder :vm.listOrderAsc | filter:query as filteredContacts track by contact.id "
+                              ng-repeat="contact in vm.test | filter: vm.search | filter: global.search | filterByIds:vm.filterIds |  orderBy: vm.listOrder :vm.listOrderAsc | filter:query as filteredContacts track by contact.id "
                               ng-click="vm.openContactDialog($event, contact)"
                               ng-style="{'transform': 'translate3d(0px, '+$index * 100+'%, 0px)', 'z-index': filteredContacts.length - $index}"
                               ng-class="{'selected': vm.isSelected(contact)}">
@@ -208,38 +208,17 @@
                                  aria-label="{{vm.exists(contact, vm.selectedContacts) ? 'Deselect' : 'Select'}}">
                     </md-checkbox>
 
-                    <img class="md-avatar" ng-if="contact.avatar" alt="{{contact.name}}"
-                         ng-src="{{contact.avatar}}"/>
-
-                    <p class="text-truncate font-weight-600">{{contact.name}} {{contact.lastName}}</p>
+                    <p class="text-truncate font-weight-600">{{contact.name}}</p>
 
 
                     <p class="email text-truncate hide show-gt-sm">
                         {{contact.email}}
                     </p>
 
-                    <p class="phone text-truncate hide show-gt-md">
-                        {{contact.phone}}
-                    </p>
 
-                    <p class="job-title text-truncate hide show-gt-lg">
-                        {{contact.jobTitle}}
-                    </p>
-
-                    <p class="company text-truncate hide show-gt-lg">
-                        {{contact.company}}
-                    </p>
 
                     <div class="actions" layout="row" layout-align="start center">
-                        <md-button class="md-icon-button  hide show-gt-xs"
-                                   ng-click="$event.stopPropagation();vm.toggleInArray(contact.id, vm.user.starred)"
-                                   aria-label="Toggle starred" translate
-                                   translate-attr-aria-label="CONTACTS.TOGGLE_STARRED">
-                            <md-icon ng-if="vm.exists(contact.id,vm.user.starred)" md-font-icon="icon-star"
-                                     class="amber-fg"></md-icon>
-                            <md-icon ng-if="!vm.exists(contact.id,vm.user.starred)"
-                                     md-font-icon="icon-star-outline"></md-icon>
-                        </md-button>
+
 
                         <md-menu>
                             <md-button class="md-icon-button" aria-label="More" translate
