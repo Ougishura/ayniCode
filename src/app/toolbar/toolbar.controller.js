@@ -118,7 +118,7 @@
         {
           $window.sessionStorage.removeItem('currentUser');
           console.log($window.sessionStorage.getItem('currentUser'));
-          Auth.$signOut();/*.then(function () {
+          Auth.$signOut()/*.then(function () {
             console.log("se fue");
 
           }).catch(function (error) {

@@ -16,11 +16,11 @@
                 views  : {
                     'content@app': {
                         templateUrl: 'app/main/sample/sample.html',
-                        controller : 'SampleController as vm'
+                        controller : 'SampleController as vm',
 
                     }
                 },
-
+              
                 resolve: {
                     SampleData: function (msApi)
                     {
