@@ -20,6 +20,7 @@
 
                     }
                 },
+              
                 resolve: {
                     SampleData: function (msApi)
                     {

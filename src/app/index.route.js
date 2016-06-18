@@ -11,7 +11,7 @@
     {
         $locationProvider.html5Mode(true);
 
-        $urlRouterProvider.otherwise('/sample');
+        $urlRouterProvider.otherwise('/auth');
 
         /**
          * Layout Style Switcher
@@ -73,10 +73,31 @@
         $stateProvider
             .state('app', {
                 abstract: true,
+              data: {
+                requireLogin: true // this property will apply to all children of 'app'
+              },
                 views   : {
                     'main@'         : {
                         templateUrl: layouts[layoutStyle].main,
-                        controller : 'MainController as vm'
+                        controller : 'MainController as vm',
+
+                      /*resolve: {
+                        // controller will not be loaded until $waitForSignIn resolves
+                        // Auth refers to our $firebaseAuth wrapper in the example above
+                        'currentAuth': ["Auth", function(Auth) {
+
+                          // $waitForSignIn returns a promise so the resolve waits for it to complete
+
+                          return Auth.$requireSignIn().then(function (e) {
+
+                            console.log("antes del auth"+e);
+                          }).catch(function (error) {
+                            console.log(error);
+                          })
+
+                        }]
+                      }*/
+
                     },
                     'toolbar@app'   : {
                         templateUrl: layouts[layoutStyle].toolbar,
@@ -90,6 +111,15 @@
                         templateUrl: 'app/quick-panel/quick-panel.html',
                         controller : 'QuickPanelController as vm'
                     }
+                    /*'content@app':{
+                      resolve : {
+                        currentAuth: ["Auth" , function (Auth) {
+                          console.log("asdasdasdasd");
+                          return Auth.$requireSignIn();
+
+                        }]
+                      }
+                    }*/
                 }
             });
     }
