@@ -23,6 +23,6 @@
             // Sample
             'app.sample',
 
-            'firebase'
+            'firebase', 'app.auth'
         ]);
 })();

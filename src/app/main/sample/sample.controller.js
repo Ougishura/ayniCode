@@ -4,15 +4,12 @@
 
     angular
         .module('app.sample')
-        .controller('SampleController', function(Auth,$scope){
+        .controller('SampleController', function(Auth,$scope,$window,$state){
           var vm = this;
-
-
-
-
           vm.createUser = createUser;
           vm.deleteUser = deleteUser;
           vm.signIn = signIn;
+          vm.currentUser = currentUser;
           vm.message = null;
           vm.error = null;
           vm.test = null;
@@ -21,17 +18,22 @@
           function signIn() {
             Auth.$signInWithEmailAndPassword(vm.test, vm.test1).
               then(function (firebaseUser) {
-                  console.log('entro '+firebaseUser.uid);
+
+                  currentUser(firebaseUser);
+                 /* console.log('entro '+firebaseUser.uid);
                   console.log('entro '+firebaseUser.email);
-                  console.log('entro '+firebaseUser.credential);
+                  console.log('entro '+firebaseUser.credential);*/
               }).catch(function(error) {
                 // Handle Errors here.
                 vm.message = error.code;
                 vm.error = error.message;
-
             });
+          }
 
-
+          function currentUser(firebaseUser) {
+            $window.sessionStorage.currentUser = firebaseUser.uid;
+            console.log($window.sessionStorage.currentUser);
+            $state.go('app.sample');
           }
 
           function createUser() {

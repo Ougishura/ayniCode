@@ -7,7 +7,7 @@
         .controller('IndexController', IndexController);
 
     /** @ngInject */
-    function IndexController(fuseTheming,pharmacyFactory)
+    function IndexController(fuseTheming,pharmacyFactory,$rootScope)
     {
         var vm = this;
 
