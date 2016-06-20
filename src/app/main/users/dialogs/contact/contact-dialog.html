@@ -1,0 +1,138 @@
+<!-- DIALOG -->
+<md-dialog class="contact-dialog" aria-label="New Task">
+
+    <form name="contactForm" class="md-inline-form" novalidate>
+
+
+        <!-- / DIALOG TOOLBAR -->
+
+        <!-- DIALOG CONTENT -->
+        <md-dialog-content ms-scroll>
+
+            <md-input-container class="md-icon-float md-block">
+                <label translate="CONTACTS.NAME_REQUIRED"></label>
+                <input ng-model="vm.contact.name" type="text" >
+            </md-input-container>
+
+            <md-input-container class="md-icon-float md-block">
+              <label translate="CONTACTS.MIDDLE_NAME"></label>
+
+              <input ng-model="vm.contact.middleName" type="text">
+            </md-input-container>
+
+            <md-input-container class="md-icon-float md-block">
+                <label translate="CONTACTS.LAST_NAME"></label>
+
+                <input ng-model="vm.contact.lastName" type="text">
+            </md-input-container>
+
+            <md-input-container class="md-icon-float md-block">
+              <label translate="CONTACTS.SECOND_LAST_NAME"></label>
+
+              <input ng-model="vm.contact.secondLastName" type="text">
+            </md-input-container>
+
+            <md-input-container class="md-icon-float md-block">
+                <label translate="CONTACTS.NRO_DOCUMENT"></label>
+                <input ng-model="vm.contact.nroDocument" type="text">
+            </md-input-container>
+
+
+            <md-input-container class="md-block" md-no-float>
+              <input type="password" name="password" ng-model="vm.contact.password"
+                     translate translate-attr-placeholder="CONTACTS.PASSWORD"
+                     required>
+              <div ng-messages="contactForm.password.$error" role="alert">
+                <div ng-message="required">
+                  <span translate="CONTACTS.ERRORS.PASSWORD_REQUIRED">Password field is required</span>
+                </div>
+              </div>
+            </md-input-container>
+
+            <md-input-container class="md-block" md-no-float>
+              <input type="password" name="passwordConfirm" ng-model="vm.contact.passwordConfirm"
+                     placeholder="Password (Confirm)"
+                     translate translate-attr-placeholder="CONTACTS.PASSWORD_CONFIRM"
+                     required>
+              <div ng-messages="contactForm.passwordConfirm.$error" role="alert">
+                <div ng-message="required">
+                  <span translate="CONTACTS.ERRORS.PASSWORD_CONFIRM_REQUIRED">Password (Confirm) field is required</span>
+                </div>
+              </div>
+            </md-input-container>
+
+            <div ng-if="!vm.allFields" layout="row" layout-align="center center">
+                <md-button class="md-accent" ng-click="vm.allFields = true" translate="CONTACTS.SHOW_ALL_FIELDS">Show
+                    All Fields
+                </md-button>
+            </div>
+
+
+
+            <div ng-if="vm.allFields">
+
+
+                <md-input-container class="md-block">
+                  <label translate="CONTACTS.PHONE_NUMBER"></label>
+                  <md-icon md-font-icon="icon-phone"></md-icon>
+                  <input ng-model="vm.contact.phoneNumber" type="text">
+                </md-input-container>
+
+                <md-input-container class="md-block">
+                  <label translate="CONTACTS.EMAIL"></label>
+                  <md-icon md-font-icon="icon-email" ></md-icon>
+                  <input ng-model="vm.contact.email" type="text">
+                </md-input-container>
+
+                <md-input-container class="md-block">
+                  <label translate="CONTACTS.ADDRESS"></label>
+                  <md-icon md-font-icon="icon-home"></md-icon>
+                  <input ng-model="vm.contact.address" type="text">
+                </md-input-container>
+
+                <div layout="row" layout-align="center center">
+                    <md-button class="md-accent" ng-click="vm.allFields = false" translate="CONTACTS.FEWER_FIELDS">Fewer
+                        Fields
+                    </md-button>
+                </div>
+
+            </div>
+
+        </md-dialog-content>
+        <!-- / DIALOG CONTENT -->
+
+        <!-- DIALOG ACTIONS -->
+        <md-dialog-actions layout="row" layout-align="space-between center">
+            <div layout="row" layout-align="start center">
+                <md-button type="submit" ng-if="!vm.newContact" ng-click="vm.saveContact()"
+                           class="send-button md-accent md-raised"
+                           ng-disabled="contactForm.$invalid || contactForm.$pristine"
+                           aria-label="SAVE" translate="CONTACTS.SAVE" translate-attr-aria-label="CONTACTS.SAVE">
+                    SAVE
+                </md-button>
+
+                <md-button type="submit" ng-if="vm.newContact" ng-click="vm.addNewContact()"
+                           class="send-button md-accent md-raised"
+                           ng-disabled="contactForm.$invalid || contactForm.$pristine"
+                           aria-label="Add Task" translate="CONTACTS.ADD_CONTACT"
+                           translate-attr-aria-label="CONTACTS.ADD_CONTACT">
+                    ADD CONTACT
+                </md-button>
+
+            </div>
+
+            <div layout="row">
+                <md-button class="md-icon-button" ng-click="vm.deleteContactConfirm($event)" aria-label="Delete"
+                           translate
+                           translate-attr-aria-label="CONTACTS.DELETE">
+                    <md-icon md-font-icon="icon-delete"></md-icon>
+                    <md-tooltip><span translate="CONTACTS.DELETE">DELETE</span></md-tooltip>
+                </md-button>
+            </div>
+        </md-dialog-actions>
+        <!-- / DIALOG ACTIONS -->
+
+    </form>
+
+</md-dialog>
+<!-- / DIALOG -->

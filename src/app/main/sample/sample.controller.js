@@ -32,7 +32,9 @@
 
           function currentUser(firebaseUser) {
             $window.sessionStorage.currentUser = firebaseUser.uid;
+            $window.sessionStorage.email = firebaseUser.email;
             console.log($window.sessionStorage.currentUser);
+            console.log("c"+$window.sessionStorage.email);
             $state.go('app.sample');
           }
 
