@@ -27,6 +27,8 @@
 
             'app.auth',
 
+            'app.suppliers',
+
             'app.contacts'
         ]);
 })();
