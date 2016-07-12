@@ -47,18 +47,11 @@
          * Change Contacts List Filter
          * @param type
          */
-
-        //vm.test =  $firebaseArray(pharmacyFactory.ref.child("users"));
+                
 
         vm.test =  Usuarios.resultUsers();
-
-
-
-
-
-
-
-        function filterChange(type)
+        
+      function filterChange(type)
         {
 
             vm.listType = type;

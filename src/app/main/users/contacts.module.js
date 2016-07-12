@@ -7,9 +7,8 @@
         .config(config);
 
     /** @ngInject */
-    function config($stateProvider, $translatePartialLoaderProvider, msApiProvider, msNavigationServiceProvider)
+    function config($stateProvider, $translatePartialLoaderProvider, msApiProvider, msNavigationServiceProvider,$windowProvider)
     {
-
         $stateProvider.state('app.contacts', {
             url    : '/contacts',
             views  : {
@@ -42,9 +41,13 @@
             title : 'USUARIOS',
             icon  : 'icon-account-box',
             state : 'app.contacts',
-            weight: 10
+            weight: 10,
+            hidden: function () {
+              var $window = $windowProvider.$get();
+              console.log($window.sessionStorage.getItem('currentUser'));
+              //var c = $firebaseArray(firebase.database().ref().child('users'));
+              console.log(firebase.database().ref().child('users'));
+            }
         });
-
     }
-
 })();

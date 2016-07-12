@@ -10,7 +10,7 @@
     function config($stateProvider, $translatePartialLoaderProvider, msApiProvider, msNavigationServiceProvider)
     {
 
-        $stateProvider.state('app.suppliers', {
+        $stateProvider.state('app.suppliers',  {
             url    : '/suppliers',
             views  : {
                 'content@app': {
@@ -24,6 +24,22 @@
                     return msApi.resolve('suppliers.suppliers@get');
                 }
             }
+        }).state('app.suppliers.supplierProducts',{
+          url    : '/:products',
+          views  : {
+            'content@app': {
+              templateUrl: 'app/main/suppliers/supplierProducts.html',
+              controller: 'supplierProductsController as vm'
+            },
+            resolve: {
+              SupplierProducts: function (msApi) {
+                return msApi.resolve('supplierProducts.supplierProducts@get');
+              },
+              SupplierProduct : function (msApi) {
+                return msApi.resolve('supplierProduct.supplierProducts@get');
+              }
+            }
+          }
         });
 
         // Translation

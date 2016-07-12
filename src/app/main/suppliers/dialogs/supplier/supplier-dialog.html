@@ -4,83 +4,28 @@
     <form name="supplierForm" class="md-inline-form" novalidate>
 
         <!-- DIALOG TOOLBAR -->
-        <md-toolbar class="md-accent md-tall" layout="column">
 
-            <!-- TOOLBAR TOP -->
-            <div class="md-toolbar-tools md-toolbar-tools-top" layout="row" layout-align="space-between">
-                <span class="title">{{vm.title}}</span>
-                <md-button class="md-icon-button" ng-click="vm.closeDialog()" aria-label="Close dialog" translate
-                           translate-attr-aria-label="SUPPLIERS.CLOSE_DIALOG">
-                    <md-icon md-font-icon="icon-close"></md-icon>
-                </md-button>
-            </div>
-            <!-- / TOOLBAR TOP -->
-
-            <!-- TOOLBAR MIDDLE -->
-            <div class="md-toolbar-tools md-toolbar-tools-middle" flex layout="column" layout-align="center center">
-
-                <div layout="column" layout-align="center center">
-
-                    <img ng-src="{{vm.supplier.avatar}}" class="md-avatar avatar supplier-avatar huge"
-                         alt="{{vm.supplier.name}}"/>
-
-                    <div class="supplier-name">{{vm.supplier.name}}</div>
-
-                </div>
-
-            </div>
-            <!-- / TOOLBAR MIDDLE -->
-
-            <!--  TOOLBAR BOTTOM -->
-            <div class="md-toolbar-tools md-toolbar-tools-bottom" layout="row" layout-align="center center">
-
-                <div flex layout="row" layout-align="center center">
-
-
-
-                    <md-menu>
-                        <md-button class="md-icon-button" aria-label="More" translate
-                                   translate-attr-aria-label="TODO.MORE">
-                            <md-icon md-font-icon="icon-account-multiple-plus" ng-click="$mdOpenMenu($event)"></md-icon>
-                        </md-button>
-
-                        <md-menu-content width="3">
-                            <md-list-item ng-if="vm.user.groups" ng-repeat="group in vm.user.groups"
-                                          ng-click="vm.toggleInArray(vm.supplier.id,group.supplierIds)">
-                                <p class="pl-8"
-                                   ng-style="vm.exists(vm.supplier.id,group.supplierIds) && {'font-weight':'500'}">
-                                    {{group.name}}
-                                </p>
-                            </md-list-item>
-
-                        </md-menu-content>
-                    </md-menu>
-                </div>
-            </div>
-            <!-- / TOOLBAR BOTTOM -->
-
-        </md-toolbar>
         <!-- / DIALOG TOOLBAR -->
 
         <!-- DIALOG CONTENT -->
         <md-dialog-content ms-scroll>
 
             <md-input-container class="md-icon-float md-block">
-                <label translate="SUPPLIERS.NAME_REQUIRED">Name (required)</label>
+                <label translate="SUPPLIERS.NAME_REQUIRED">Nombre (obligatorio)</label>
                 <md-icon md-font-icon="icon-account" class="name"></md-icon>
                 <input ng-model="vm.supplier.socialName" type="text" ng-required>
             </md-input-container>
 
             <md-input-container class="md-icon-float md-block">
-                <label translate="SUPPLIERS.LAST_NAME">RUC</label>
+                <label translate="SUPPLIERS.RUC">RUC (required)</label>
                 <md-icon></md-icon>
                 <input ng-model="vm.supplier.ruc" type="text">
             </md-input-container>
 
             <md-input-container class="md-icon-float md-block">
-                <label translate="SUPPLIERS.address">Address</label>
+                <label translate="SUPPLIERS.ADDRESS">Address</label>
                 <md-icon></md-icon>
-                <input ng-model="vm.supplier.ruc" type="text">
+                <input ng-model="vm.supplier.address" type="text">
             </md-input-container>
 
             <div ng-if="!vm.allFields" layout="row" layout-align="center center">
@@ -92,38 +37,29 @@
             <div ng-if="vm.allFields">
                 <md-input-container class="md-block">
                     <md-icon md-font-icon="icon-phone"></md-icon>
-                    <input ng-model="vm.supplier.phoneNumber" type="text" placeholder="Phone number" translate
-                           translate-attr-placeholder="SUPPLIERS.PHONE_NUMBER">
+                    <input ng-model="vm.supplier.phoneNumber" type="text" placeholder="Telefono" >
                 </md-input-container>
-
-                <md-input-container class="md-block">
-                    <md-icon md-font-icon="icon-email" class="email"></md-icon>
-                    <input ng-model="vm.supplier.description" type="text" placeholder="Description" translate
-                           translate-attr-placeholder="SUPPLIERS.EMAIL">
-                </md-input-container>
-
-
-                <md-input-container class="md-block">
-                    <md-icon md-font-icon="icon-domain"></md-icon>
-                    <input ng-model="vm.supplier.creationDate" type="text" placeholder="Creation date" translate
-                           translate-attr-placeholder="SUPPLIERS.COMPANY">
-                </md-input-container>
-
-                <md-input-container class="md-block">
-                    <md-icon md-font-icon="icon-worker"></md-icon>
-                    <input ng-model="vm.supplier.id" type="text" placeholder="ID" translate
-                           translate-attr-placeholder="SUPPLIERS.JOB_TITLE">
-                </md-input-container>
-
-                <!--<md-datepicker class="birthday-input" ng-model="vm.supplier.birthday" md-placeholder="Birthday"
-                               ng-required="false">
-                </md-datepicker>-->
-
+              <md-datepicker class="birthday-input"  ng-model="vm.supplier.creationDate" md-placeholder="Fecha de ingreso"
+                             ng-required="false">
+              </md-datepicker>
+                  <!--<div ng-if="vm.supplier.creationDate===''">
+                    <md-datepicker class="birthday-input"  ng-model="vm.supplier.creationDate" md-placeholder="Fecha de ingreso"
+                                   ng-required="false">
+                    </md-datepicker>
+                  </div>
+                  <div ng-if="vm.supplier.creationDate!==''">
+                    <md-datepicker class="birthday-input" ng-bind="vm.supplier.creationDate"  ng-model="vm.supplier.creationDate" md-placeholder="Fecha de ingreso"
+                                   ng-required="false">
+                    </md-datepicker>
+                  </div>-->
                 <md-input-container class="md-block">
                     <md-icon md-font-icon="icon-home"></md-icon>
-                    <input ng-model="vm.supplier.address" type="text" placeholder="Address" translate
-                           translate-attr-placeholder="SUPPLIERS.ADDRESS">
+                    <input ng-model="vm.supplier.description" type="text" placeholder="Descripcion" >
                 </md-input-container>
+              <md-input-container>
+                <input type="checkbox" ng-checked="{{vm.supplier.state}}"  ng-model="vm.supplier.state" aria-label="Activo">Activo</input>
+              </md-input-container>
+
 
               <!--<div layout="row" class="md-block textarea-wrapper" layout-align="start start">
                   <md-icon md-font-icon="icon-note"></md-icon>

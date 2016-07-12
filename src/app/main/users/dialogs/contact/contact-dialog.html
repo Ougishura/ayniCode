@@ -16,13 +16,11 @@
 
             <md-input-container class="md-icon-float md-block">
               <label translate="CONTACTS.MIDDLE_NAME"></label>
-
               <input ng-model="vm.contact.middleName" type="text">
             </md-input-container>
 
             <md-input-container class="md-icon-float md-block">
                 <label translate="CONTACTS.LAST_NAME"></label>
-
                 <input ng-model="vm.contact.lastName" type="text">
             </md-input-container>
 
@@ -36,6 +34,25 @@
                 <label translate="CONTACTS.NRO_DOCUMENT"></label>
                 <input ng-model="vm.contact.nroDocument" type="text">
             </md-input-container>
+
+          <md-input-container>
+            <label translate="CONTACTS.ROL"></label>
+            <input ng-readonly="true" ng-model= "vm.contact.rol">
+            <md-menu>
+
+              <md-button aria-label="Open demo menu" class="md-icon-button" ng-click="$mdOpenMenu($event)">
+                <md-icon md-font-icon="icon-dots-vertical"></md-icon>
+              </md-button>
+              <md-menu-content width="6">
+                <md-menu-item ng-repeat="autori in vm.roles">
+                  <md-button ng-click="vm.assignRol(autori.description)">
+                    <md-icon md-menu-align-target md-svg-icon="call:no-sim"></md-icon>
+                    {{autori.description}}
+                  </md-button>
+                </md-menu-item>
+              </md-menu-content>
+            </md-menu>
+          </md-input-container>
 
 
             <md-input-container class="md-block" md-no-float>

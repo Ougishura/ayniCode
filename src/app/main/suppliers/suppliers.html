@@ -105,19 +105,6 @@
 
           <div layout="row" layout-align="space-between center">
 
-            <div class="list-title" layout="row" layout-align="start center"
-                 ng-hide="editGroupForm.$visible">
-              <span ng-if="vm.listType === 'all'" translate="SUPPLIERS.ALL_SUPPLIERS">All suppliers</span>
-                            <span ng-if="vm.listType === 'frequent'" translate="SUPPLIERS.FREQUENTLY_SUPPLIERED">Frequnetly
-                                suppliered</span>
-                            <span ng-if="vm.listType === 'starred'" translate="SUPPLIERS.STARRED_SUPPLIERS">Starred
-                                suppliers</span>
-            </div>
-
-
-
-
-
             <md-menu>
 
               <md-button class="md-icon-button" aria-label="Sort" translate
@@ -131,7 +118,7 @@
                 <md-menu-item>
                   <md-button ng-click="vm.listOrder = 'name';vm.listOrderAsc = false"
                              ng-style="vm.listOrder === 'name' && vm.listOrderAsc=== false && {'font-weight':'500'}">
-                    <span translate="SUPPLIERS.FIRST_NAME">First Name</span>
+                    <span translate="SUPPLIERS.NAME">First Name</span>
                     <small translate="SUPPLIERS.A_TO_Z">(A to Z)</small>
                   </md-button>
                 </md-menu-item>
@@ -139,23 +126,23 @@
                 <md-menu-item>
                   <md-button ng-click="vm.listOrder = 'name'; vm.listOrderAsc = true"
                              ng-style="vm.listOrder === 'name' && vm.listOrderAsc=== true && {'font-weight':'500'}">
-                    <span translate="SUPPLIERS.FIRST_NAME">First Name</span>
+                    <span translate="SUPPLIERS.NAME">First Name</span>
                     <small translate="SUPPLIERS.Z_TO_A">(Z to A)</small>
                   </md-button>
                 </md-menu-item>
 
                 <md-menu-item>
-                  <md-button ng-click="vm.listOrder = 'lastName';vm.listOrderAsc = false"
-                             ng-style="vm.listOrder === 'lastName' && vm.listOrderAsc=== false && {'font-weight':'500'}">
-                    <span translate="SUPPLIERS.LAST_NAME">Last Name</span>
+                  <md-button ng-click="vm.listOrder = 'address';vm.listOrderAsc = false"
+                             ng-style="vm.listOrder === 'address' && vm.listOrderAsc=== false && {'font-weight':'500'}">
+                    <span translate="SUPPLIERS.ADDRESS">Last Name</span>
                     <small translate="SUPPLIERS.A_TO_Z">(A to Z)</small>
                   </md-button>
                 </md-menu-item>
 
                 <md-menu-item>
-                  <md-button ng-click="vm.listOrder = 'lastName'; vm.listOrderAsc = true"
-                             ng-style="vm.listOrder === 'lastName' && vm.listOrderAsc=== true && {'font-weight':'500'}">
-                    <span translate="SUPPLIERS.LAST_NAME">Last Name</span>
+                  <md-button ng-click="vm.listOrder = 'address'; vm.listOrderAsc = true"
+                             ng-style="vm.listOrder === 'address' && vm.listOrderAsc=== true && {'font-weight':'500'}">
+                    <span translate="SUPPLIERS.ADDRESS">Last Name</span>
                     <small translate="SUPPLIERS.Z_TO_A">(Z to A)</small>
                   </md-button>
                 </md-menu-item>
@@ -181,12 +168,14 @@
                        aria-label="{{vm.exists(supplier, vm.selectedSuppliers) ? 'Deselect' : 'Select'}}">
           </md-checkbox>
 
-
-
           <p class="text-truncate font-weight-600">{{supplier.ruc}}</p>
           <p class="text-truncate font-weight-600">{{supplier.socialName}}</p>
           <p class="text-truncate font-weight-600">{{supplier.address}}</p>
           <p class="text-truncate font-weight-600">{{supplier.phoneNumber}}</p>
+
+
+          <md-icon class="icon icon-arrow-collapse s40" style="font-size: 25px" ng-click="vm.openProducts(supplier, $event)"
+                   aria-label="Chat" md-svg-icon="communication:message"></md-icon>
           <!--<p class="text-truncate font-weight-600">{{supplier.creationDate}}</p>
           <p class="text-truncate font-weight-600">{{supplier.description}}</p>
           <p class="text-truncate font-weight-600">{{supplier.id}}</p>

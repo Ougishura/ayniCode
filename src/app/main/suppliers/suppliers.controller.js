@@ -7,17 +7,14 @@
         .controller('SuppliersController', SuppliersController);
 
     /** @ngInject */
-    function SuppliersController($scope, $mdSidenav, Suppliers,msUtils, $mdDialog, $document,pharmacyFactory,$firebaseArray)
+    function SuppliersController($state,$scope,$mdSidenav,Proveedores,msUtils,$mdDialog,$document,$stateParams)
     {
 
         var vm = this;
 
         // Data
         vm.test;
-        vm.roles;
-        vm.users;
-        vm.suppliers = Suppliers.data;
-
+        vm.test1;
         vm.filterIds = null;
         vm.listType = 'all';
         vm.listOrder = 'name';
@@ -25,8 +22,10 @@
         vm.selectedSuppliers = [];
         vm.newGroupName = '';
 
+
         // Methods
         vm.filterChange = filterChange;
+        vm.openProducts = openProducts;
         vm.openSupplierDialog = openSupplierDialog;
         vm.deleteSupplierConfirm = deleteSupplierConfirm;
         vm.deleteSupplier = deleteSupplier;
@@ -35,21 +34,12 @@
         vm.deselectSuppliers = deselectSuppliers;
         vm.selectAllSuppliers = selectAllSuppliers;
         vm.deleteSupplier = deleteSupplier;
-        vm.addNewGroup = addNewGroup;
-        vm.deleteGroup = deleteGroup;
         vm.toggleSidenav = toggleSidenav;
         vm.toggleInArray = msUtils.toggleInArray;
         vm.exists = msUtils.exists;
 
-        //////////
+        vm.test =  Proveedores.resultSuppliers();
 
-        /**
-         * Change Suppliers List Filter
-         * @param type
-         */
-
-        vm.test =  $firebaseArray(pharmacyFactory.ref.child("suppliers"));
-      
         function filterChange(type)
         {
 
@@ -104,9 +94,9 @@
         function deleteSupplierConfirm(supplier, ev)
         {
             var confirm = $mdDialog.confirm()
-                .title('Are you sure want to delete the supplier?')
+                .title('Esta seguro que desea eliminar este proveedor?')
                 .htmlContent('<b>' + supplier.ruc + ' : ' + supplier.socialName + '</b>' + ' will be deleted.')
-                .ariaLabel('delete supplier')
+                .ariaLabel('Eliminar Proveedor')
                 .targetEvent(ev)
                 .ok('OK')
                 .cancel('CANCEL');
@@ -128,7 +118,8 @@
          */
         function deleteSupplier(supplier)
         {
-            vm.suppliers.splice(vm.suppliers.indexOf(supplier), 1);
+          Proveedores.deleteSupplier(supplier);
+          //  vm.suppliers.splice(vm.suppliers.indexOf(supplier), 1);
         }
 
         /**
@@ -137,9 +128,9 @@
         function deleteSelectedSuppliers(ev)
         {
             var confirm = $mdDialog.confirm()
-                .title('Are you sure want to delete the selected suppliers?')
+                .title('Esta seguro de eliminar los proveedores seleccionados?')
                 .htmlContent('<b>' + vm.selectedSuppliers.length + ' selected</b>' + ' will be deleted.')
-                .ariaLabel('delete suppliers')
+                .ariaLabel('Eliminar Proveedores')
                 .targetEvent(ev)
                 .ok('OK')
                 .cancel('CANCEL');
@@ -196,52 +187,6 @@
         {
             vm.selectedSuppliers = $scope.filteredSuppliers;
         }
-
-        /**
-         *
-         */
-        function addNewGroup()
-        {
-            if ( vm.newGroupName === '' )
-            {
-                return;
-            }
-
-            var newGroup = {
-                'id'        : msUtils.guidGenerator(),
-                'name'      : vm.newGroupName,
-                'supplierIds': []
-            };
-
-            vm.user.groups.push(newGroup);
-            vm.newGroupName = '';
-        }
-
-        /**
-         * Delete Group
-         */
-        function deleteGroup(ev)
-        {
-            var group = vm.listType;
-
-            var confirm = $mdDialog.confirm()
-                .title('Are you sure want to delete the group?')
-                .htmlContent('<b>' + group.name + '</b>' + ' will be deleted.')
-                .ariaLabel('delete group')
-                .targetEvent(ev)
-                .ok('OK')
-                .cancel('CANCEL');
-
-            $mdDialog.show(confirm).then(function ()
-            {
-
-                vm.user.groups.splice(vm.user.groups.indexOf(group), 1);
-
-                filterChange('all');
-            });
-
-        }
-
         /**
          * Toggle sidenav
          *
@@ -251,7 +196,14 @@
         {
             $mdSidenav(sidenavId).toggle();
         }
+      function openProducts(supplier,event){
+        if(event){
+          event.stopPropagation();
+        }
+        $state.go('app.suppliers.supplierProducts', {products: supplier.id});
 
+
+      }
     }
 
 })();

@@ -26,7 +26,6 @@
         else{
           console.log("existe usuario");
           console.log($window.sessionStorage.getItem('currentUser'));
-
         }
       });
      /* $rootScope.$on("$stateChangeError", function(event, toState, toParams, fromState, fromParams, error) {

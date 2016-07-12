@@ -15,6 +15,7 @@
         vm.title = 'Añadir Usuario';
         vm.contact = angular.copy(Contact);
         vm.contacts = Contacts;
+        vm.roles = getRoles();
         vm.user = User;
         vm.newContact = false;
         vm.allFields = false;
@@ -33,7 +34,8 @@
                 'phone'   : '',
                 'address' : '',
                 'birthday': null,
-                'notes'   : ''
+                'notes'   : '',
+                'rol'     : ''
             };
 
             vm.title = 'Nuevo Usuario';
@@ -48,6 +50,7 @@
         vm.closeDialog = closeDialog;
         vm.toggleInArray = msUtils.toggleInArray;
         vm.exists = msUtils.exists;
+        vm.assignRol = assignRol;
 
         //////////
 
@@ -115,6 +118,15 @@
         {
           vm.contact = {};
             $mdDialog.hide();
+        }
+
+        function getRoles() {
+          console.log(Usuarios.getRoles());
+          return Usuarios.getRoles();
+        }
+        function assignRol(index){
+          vm.contact.rol = index;
+          console.log(vm.contact.rol);
         }
 
     }

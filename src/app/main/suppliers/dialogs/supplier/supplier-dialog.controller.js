@@ -7,12 +7,12 @@
         .controller('SupplierDialogController', SupplierDialogController);
 
     /** @ngInject */
-    function SupplierDialogController($mdDialog, Supplier, Suppliers, msUtils)
+    function SupplierDialogController($mdDialog, Supplier, Suppliers, msUtils, Proveedores)
     {
         var vm = this;
 
         // Data
-        vm.title = 'Edit Supplier';
+        vm.title = 'Editar Producto ';
         vm.supplier = angular.copy(Supplier);
         vm.suppliers = Suppliers;
         vm.newSupplier = false;
@@ -21,21 +21,19 @@
         if ( !vm.supplier )
         {
             vm.supplier = {
-                'id'      : msUtils.guidGenerator(),
-                'name'    : '',
-                'lastName': '',
-                'avatar'  : 'assets/images/avatars/profile.jpg',
-                'nickname': '',
-                'company' : '',
-                'jobTitle': '',
-                'email'   : '',
-                'phone'   : '',
-                'address' : '',
-                'birthday': null,
-                'notes'   : ''
+              'socialName': '',
+              'ruc'    : '',
+              'address' : '',
+              'phoneNumber' : '',
+              'id'      : msUtils.guidGenerator(),
+              'creationDate': '',
+              'description': '',
+              'avatar'  : 'assets/images/avatars/profile.jpg',
+              'state'   : '',
+              'listProducts' : ''
             };
 
-            vm.title = 'New Supplier';
+            vm.title = 'Nuevo Proveedor';
             vm.newSupplier = true;
             vm.supplier.tags = [];
         }
@@ -45,6 +43,7 @@
         vm.saveSupplier = saveSupplier;
         vm.deleteSupplierConfirm = deleteSupplierConfirm;
         vm.closeDialog = closeDialog;
+
         vm.toggleInArray = msUtils.toggleInArray;
         vm.exists = msUtils.exists;
 
@@ -55,9 +54,9 @@
          */
         function addNewSupplier()
         {
-            vm.suppliers.unshift(vm.supplier);
-
-            closeDialog();
+          Proveedores.setSupplier(null);
+          Proveedores.saveSupplier(vm.supplier);
+          closeDialog();
         }
 
         /**
@@ -65,7 +64,7 @@
          */
         function saveSupplier()
         {
-            // Dummy save action
+           /* // Dummy save action
             for ( var i = 0; i < vm.suppliers.length; i++ )
             {
                 if ( vm.suppliers[i].id === vm.supplier.id )
@@ -73,7 +72,10 @@
                     vm.suppliers[i] = angular.copy(vm.supplier);
                     break;
                 }
-            }
+            }*/
+            console.log(vm.supplier);
+          Proveedores.setSupplier(vm.supplier);
+          Proveedores.saveSupplier(vm.supplier);
 
             closeDialog();
         }
@@ -93,9 +95,7 @@
 
             $mdDialog.show(confirm).then(function ()
             {
-
-                vm.suppliers.splice(vm.suppliers.indexOf(Supplier), 1);
-
+              Proveedores.deleteSupplier(vm.supplier);
             });
         }
 
@@ -106,6 +106,5 @@
         {
             $mdDialog.hide();
         }
-
     }
 })();

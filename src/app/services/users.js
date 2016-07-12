@@ -35,6 +35,7 @@
             selectedUser.address=usuario.address;
             selectedUser.phoneNumber=usuario.phoneNumber;
             selectedUser.email=usuario.email;
+            selectedUser.rol = usuario.rol;
 
             selectedUser.$save().then(function () {
               console.log("se guardo correctamente");
@@ -42,39 +43,25 @@
               // Handle Errors here.
              console.log(error);
             });
-
-            Auth.$updatePassword("arca.ac.hotmail.com").then(function () {
-
-            });
           }else{
-            selectedUser = pharmacyFactory.ref.child("users").push({
-              "id": null,
-              "nroDocument":usuario.nroDocument,
-              "name": usuario.name,
-              "middleName":usuario.middleName,
-              "lastName":usuario.lastName,
-              "secondLastName":usuario.secondLastName,
-              "address":usuario.address,
-              "phoneNumber":usuario.phoneNumber,
-              "email":usuario.email
-            },function (response) {
-              idUser=selectedUser.key;
-              selectedUser.update({
-                id : selectedUser.key
-              });
-            });
 
             Auth.$createUserWithEmailAndPassword(usuario.email,usuario.password)
               .then(function(firebaseUser) {
-               console.log("User created with uid: " + firebaseUser.uid);
+                selectedUser = pharmacyFactory.ref.child("users/"+firebaseUser.uid).set({
+                  "id": firebaseUser.uid,
+                  "nroDocument":usuario.nroDocument,
+                  "name": usuario.name,
+                  "middleName":usuario.middleName,
+                  "lastName":usuario.lastName,
+                  "secondLastName":usuario.secondLastName,
+                  "address":usuario.address,
+                  "phoneNumber":usuario.phoneNumber,
+                  "email":usuario.email,
+                  "rol" : usuario.rol
+                });
               }).catch(function(error) {
-                console.log("Error aqui:"+error);
+              console.log("Error aqui:"+error);
             });
-
-
-
-            return
-
           }
         },
         setUser : function (usuario) {
@@ -94,7 +81,13 @@
             // Handle Errors here.
             console.log(error);
           });
+        },
+
+        getRoles : function () {
+          var ref = pharmacyFactory.ref.child('roles');
+          return $firebaseArray(ref);
         }
+
       };
 
     });

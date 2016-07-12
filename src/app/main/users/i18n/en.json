@@ -45,7 +45,8 @@
         "CONTACTS.PASSWORD" : "Contraseña",
         "CONTACTS.PASSWORD_CONFIRM":"Confirmar Contraseña",
         "CONTACTS.ERRORS.PASSWORD_REQUIRED" : "Contraseña es requerida",
-        "CONTACTS.ERRORS.PASSWORD_CONFIRM_REQUIRED" : "Es necesario confirmar la contraseña"
+        "CONTACTS.ERRORS.PASSWORD_CONFIRM_REQUIRED" : "Es necesario confirmar la contraseña",
+        "ROL": "Autorizacion"
 
     }
 }

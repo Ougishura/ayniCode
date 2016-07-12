@@ -11,7 +11,7 @@
     {
         // Enable debug logging
         $logProvider.debugEnabled(true);
-        
+
         // angular-translate configuration
         $translateProvider.useLoader('$translatePartialLoader', {
             urlTemplate: '{part}/i18n/{lang}.json'
