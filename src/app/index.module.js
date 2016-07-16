@@ -29,11 +29,8 @@
 
             'app.suppliers',
 
-            'app.contacts'
+            'app.contacts',
 
-
-
-
-
+            'app.requests'
         ]);
 })();

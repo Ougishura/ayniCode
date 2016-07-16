@@ -44,9 +44,9 @@
             weight: 10,
             hidden: function () {
               var $window = $windowProvider.$get();
-              console.log($window.sessionStorage.getItem('currentUser'));
+             // console.log($window.sessionStorage.getItem('currentUser'));
               //var c = $firebaseArray(firebase.database().ref().child('users'));
-              console.log(firebase.database().ref().child('users'));
+             // console.log(firebase.database().ref().child('users'));
             }
         });
     }

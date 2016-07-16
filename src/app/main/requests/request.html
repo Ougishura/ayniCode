@@ -1,0 +1,209 @@
+<div id="requests" class="page-layout simple left-sidenav inner-sidenav">
+
+  <!-- HEADER -->
+  <div class="header md-accent-bg" layout="row" layout-align="space-between center">
+
+    <!-- APP TITLE -->
+    <div layout="row" layout-align="start center">
+      <md-button class="md-icon-button sidenav-toggle" hide-gt-md ng-click="vm.toggleSidenav('sidenav')"
+                 aria-label="Toggle sidenav" translate translate-attr-aria-label="REQUESTS.TOGGLE_SIDENAV">
+        <md-icon md-font-icon="icon-menu" class="icon"></md-icon>
+      </md-button>
+
+      <div class="logo" layout="row" layout-align="start center">
+                <span class="logo-icon">
+                    <md-icon md-font-icon="icon-account-box" class="s24"></md-icon>
+                </span>
+        <span class="logo-text" translate="REQUESTS.REQUESTS">Requests</span>
+      </div>
+    </div>
+    <!-- / APP TITLE -->
+
+    <!-- SEARCH -->
+    <div class="search-input-wrapper" layout="row" layout-align="start center">
+      <label for="search">
+        <md-icon md-font-icon="icon-magnify"></md-icon>
+      </label>
+      <md-input-container md-no-float class="m-0">
+        <input id="search" placeholder="Search for anyone" type="text" ng-model="vm.search" translate
+               translate-attr-placeholder="REQUESTS.SEARCH_FOR_ANYONE">
+      </md-input-container>
+    </div>
+    <!-- / SEARCH -->
+
+  </div>
+  <!-- / HEADER -->
+
+  <!-- SELECTED BAR -->
+  <div ng-show="vm.selectedRequests.length > 0" class="selected-bar header animate-slide-down md-accent-bg"
+       layout="row" layout-align="start center">
+
+    <div class="close-button-wrapper" ng-click="vm.selectedRequests =[]">
+      <md-button layout="row" layout-align="start center">
+        <md-icon md-font-icon="icon-arrow-left" class="mr-8"></md-icon>
+        <span translate="REQUESTS.BACK">Back</span>
+      </md-button>
+    </div>
+
+    <div flex layout="row" layout-align="space-between center">
+
+      <div>
+                <span class="selected-requests-count">
+                    <span>{{vm.selectedRequests.length}}</span>
+                    <span translate="REQUESTS.SELECTED">selected</span>
+                </span>
+
+        <md-menu class="select-menu" ng-if="!vm.currentThread">
+          <md-button class="md-icon-button"
+                     ng-click="$mdOpenMenu($event)"
+                     aria-label="multi select toggle"
+                     translate translate-attr-aria-label="REQUESTS.MULTI_SELECT_TOGGLE">
+            <md-icon md-font-icon="icon-menu-down"></md-icon>
+          </md-button>
+          <md-menu-content width="3">
+            <md-menu-item>
+              <md-button ng-click="vm.selectAllRequests()" translate="REQUESTS.SELECT_ALL">
+                Select all
+              </md-button>
+            </md-menu-item>
+            <md-menu-item>
+              <md-button ng-click="vm.deselectRequests()" translate="REQUESTS.SELECT_NONE">
+                Select none
+              </md-button>
+            </md-menu-item>
+          </md-menu-content>
+        </md-menu>
+      </div>
+
+      <div class="multi-select-actions">
+        <md-button class="md-icon-button" ng-click="vm.deleteSelectedRequests($event)"
+                   aria-label="delete selected" translate translate-attr-label="REQUESTS.DELETE_SELECTED">
+          <md-icon md-font-icon="icon-delete"></md-icon>
+        </md-button>
+      </div>
+
+    </div>
+
+  </div>
+  <!-- / SELECTED BAR -->
+
+  <!-- CONTENT -->
+  <div class="content" md-background-bg layout="row" layout-align="start start">
+
+    <!-- SIDENAV -->
+
+    <!-- / SIDENAV -->
+
+    <!-- MAIN -->
+    <div class="main" ms-scroll>
+
+      <!-- REQUEST LIST -->
+      <md-list class="requests-list">
+
+        <!-- REQUEST LIST HEADER -->
+        <md-subheader class="md-no-sticky md-white-bg">
+
+          <div layout="row" layout-align="space-between center">
+
+            <md-menu>
+
+              <md-button class="md-icon-button" aria-label="Sort" translate
+                         translate-attr-aria-label="REQUESTS.SORT">
+                <md-icon md-font-icon="icon-sort-alphabetical"
+                         ng-click="$mdOpenMenu($event)"></md-icon>
+              </md-button>
+
+              <md-menu-content width="3">
+
+                <md-menu-item>
+                  <md-button ng-click="vm.listOrder = 'name';vm.listOrderAsc = false"
+                             ng-style="vm.listOrder === 'name' && vm.listOrderAsc=== false && {'font-weight':'500'}">
+                    <span translate="REQUESTS.NAME">First Name</span>
+                    <small translate="REQUESTS.A_TO_Z">(A to Z)</small>
+                  </md-button>
+                </md-menu-item>
+
+                <md-menu-item>
+                  <md-button ng-click="vm.listOrder = 'name'; vm.listOrderAsc = true"
+                             ng-style="vm.listOrder === 'name' && vm.listOrderAsc=== true && {'font-weight':'500'}">
+                    <span translate="REQUESTS.NAME">First Name</span>
+                    <small translate="REQUESTS.Z_TO_A">(Z to A)</small>
+                  </md-button>
+                </md-menu-item>
+
+                <md-menu-item>
+                  <md-button ng-click="vm.listOrder = 'address';vm.listOrderAsc = false"
+                             ng-style="vm.listOrder === 'address' && vm.listOrderAsc=== false && {'font-weight':'500'}">
+                    <span translate="REQUESTS.ADDRESS">Last Name</span>
+                    <small translate="REQUESTS.A_TO_Z">(A to Z)</small>
+                  </md-button>
+                </md-menu-item>
+
+                <md-menu-item>
+                  <md-button ng-click="vm.listOrder = 'address'; vm.listOrderAsc = true"
+                             ng-style="vm.listOrder === 'address' && vm.listOrderAsc=== true && {'font-weight':'500'}">
+                    <span translate="REQUESTS.ADDRESS">Last Name</span>
+                    <small translate="REQUESTS.Z_TO_A">(Z to A)</small>
+                  </md-button>
+                </md-menu-item>
+
+              </md-menu-content>
+
+            </md-menu>
+
+          </div>
+
+        </md-subheader>
+        <!-- / REQUEST LIST HEADER -->
+
+        <!-- REQUEST ITEM -->
+        <md-list-item class="request-item md-white-bg" md-ink-ripple
+                      ng-repeat="request in vm.test | filter: vm.search | filter: global.search | filterByIds:vm.filterIds |  orderBy: vm.listOrder :vm.listOrderAsc | filter:query as filteredRequests track by request.id "
+                      ng-click="vm.openRequestDialog($event, request)"
+                      ng-style="{'transform': 'translate3d(0px, '+$index * 100+'%, 0px)', 'z-index': filteredRequests.length - $index}"
+                      ng-class="{'selected': vm.isSelected(request)}">
+
+          <md-checkbox ng-checked="vm.exists(request, vm.selectedRequests)"
+                       ng-click="vm.toggleSelectRequest(request, $event)"
+                       aria-label="{{vm.exists(request, vm.selectedRequests) ? 'Deselect' : 'Select'}}">
+          </md-checkbox>
+
+          <p class="text-truncate font-weight-600">{{request.}}</p>
+          <p class="text-truncate font-weight-600">{{request.socialName}}</p>
+          <p class="text-truncate font-weight-600">{{request.address}}</p>
+          <p class="text-truncate font-weight-600">{{request.phoneNumber}}</p>
+
+
+          <md-icon class="icon icon-arrow-collapse s40" style="font-size: 25px" ng-click="vm.openProducts(request, $event)"
+                   aria-label="Chat" md-svg-icon="communication:message"></md-icon>
+          <!--<p class="text-truncate font-weight-600">{{request.creationDate}}</p>
+          <p class="text-truncate font-weight-600">{{request.description}}</p>
+          <p class="text-truncate font-weight-600">{{request.id}}</p>
+          <p class="text-truncate font-weight-600">{{request.state}}</p>-->
+        </md-list-item>
+        <!-- REQUEST ITEM -->
+
+      </md-list>
+      <!-- / REQUEST LIST -->
+
+      <!-- NO RESULTS -->
+      <md-list-item class="no-results md-white-bg" ng-show="filteredRequests.length === 0">
+        <p translate="REQUESTS.NO_RESULTS">No results..</p>
+      </md-list-item>
+      <!-- / NO RESULTS -->
+
+    </div>
+    <!-- / MAIN -->
+
+  </div>
+  <!-- / CONTENT -->
+
+  <!-- ADD REQUEST BUTTON -->
+  <md-button class="md-fab md-accent md-icon-button" id="add-request-button" ng-click="vm.openRequestDialog($event)"
+             aria-label="add request" translate translate-attr-aria-label="REQUESTS.ADD_REQUEST">
+    <md-icon md-font-icon="icon-account-plus"></md-icon>
+  </md-button>
+  <!-- / ADD REQUEST BUTTON -->
+
+</div>
+

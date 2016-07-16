@@ -1,0 +1,74 @@
+<!-- DIALOG -->
+<md-dialog class="supplierProducts-dialog" aria-label="New Task">
+
+  <form name="supplierForm" class="md-inline-form" novalidate>
+
+    <!-- DIALOG TOOLBAR -->
+
+    <!-- / DIALOG TOOLBAR -->
+
+    <!-- DIALOG CONTENT -->
+    <md-dialog-content ms-scroll>
+
+      <md-input-container class="md-icon-float md-block">
+        <label translate="SUPPLIERS.NAME_REQUIRED">Name (required)</label>
+        <md-icon md-font-icon="icon-account" class="name"></md-icon>
+        <input ng-model="vm.supplierProduct.name" type="text" ng-required>
+      </md-input-container>
+
+      <md-input-container class="md-icon-float md-block">
+        <label translate="SUPPLIERS.DESCRIPTION">Description (required)</label>
+        <md-icon></md-icon>
+        <input ng-model="vm.supplierProduct.description" type="text">
+      </md-input-container>
+
+      <md-input-container class="md-icon-float md-block">
+        <label translate="SUPPLIERS.PRESENTATION">Presentation</label>
+        <md-icon></md-icon>
+        <input ng-model="vm.supplierProduct.presentation" type="text">
+      </md-input-container>
+
+      <md-input-container class="md-block">
+        <md-icon></md-icon>
+        <label translate="SUPPLIERS.PRICE">Presentation</label>
+        <input ng-model="vm.supplierProduct.prize" type="text">
+      </md-input-container>
+
+    </md-dialog-content>
+    <!-- / DIALOG CONTENT -->
+
+    <!-- DIALOG ACTIONS -->
+    <md-dialog-actions layout="row" layout-align="space-between center">
+      <div layout="row" layout-align="start center">
+        <md-button type="submit" ng-if="!vm.newSupplierProduct" ng-click="vm.saveSupplierProduct()"
+                   class="send-button md-accent md-raised"
+                   ng-disabled="supplierForm.$invalid || supplierForm.$pristine"
+                   aria-label="SAVE" translate="SUPPLIERS.PRODUCTSAVE" translate-attr-aria-label="SUPPLIERS.PRODUCTSAVE">
+          SAVE
+        </md-button>
+
+        <md-button type="submit" ng-if="vm.newSupplierProduct" ng-click="vm.addNewSupplierProduct()"
+                   class="send-button md-accent md-raised"
+                   ng-disabled="supplierForm.$invalid || supplierForm.$pristine"
+                   aria-label="Add Task" translate="SUPPLIERS.ADD_PRODUCT"
+                   translate-attr-aria-label="SUPPLIERS.ADD_PRODUCT">
+          ADD SUPPLIER
+        </md-button>
+
+      </div>
+
+      <div layout="row">
+        <md-button class="md-icon-button" ng-click="vm.deleteSupplierProductConfirm($event)" aria-label="Delete"
+                   translate
+                   translate-attr-aria-label="SUPPLIERS.DELETE">
+          <md-icon md-font-icon="icon-delete"></md-icon>
+          <md-tooltip><span translate="SUPPLIERS.DELETE">DELETE</span></md-tooltip>
+        </md-button>
+      </div>
+    </md-dialog-actions>
+    <!-- / DIALOG ACTIONS -->
+
+  </form>
+
+</md-dialog>
+<!-- / DIALOG -->
