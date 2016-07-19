@@ -7,7 +7,7 @@
         .controller('ContactsController', ContactsController);
 
     /** @ngInject */
-    function ContactsController($scope, $mdSidenav, Contacts, User, msUtils, $mdDialog, $document,Usuarios)
+    function ContactsController($scope, $mdSidenav, Contacts, User, msUtils, $mdDialog, $document,Rols,Usuarios)
     {
 
         var vm = this;
@@ -40,6 +40,7 @@
         vm.toggleSidenav = toggleSidenav;
         vm.toggleInArray = msUtils.toggleInArray;
         vm.exists = msUtils.exists;
+        vm.prueba = pruebRol;
 
         //////////
 
@@ -53,7 +54,9 @@
         vm.test =  Usuarios.resultUsers();
 
 
-
+        function pruebRol() {
+          vm.prueba = Rols.resultUserRol();
+        }
 
 
 
@@ -100,9 +103,9 @@
                 targetEvent        : ev,
                 clickOutsideToClose: true,
                 locals             : {
-                    Contact : contact,
-                    User    : vm.user,
-                    Contacts: vm.contacts
+                   Contact : contact,
+                   User    : vm.user,
+                   Contacts: vm.contacts
                 }
             });
         }

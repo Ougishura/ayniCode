@@ -27,6 +27,15 @@
 
             'app.auth',
 
-            'app.contacts'
+            'app.contacts',
+
+            'app.persons'
         ]);
+
+
+    function loginRol(Personas) {
+
+    }
+
+
 })();

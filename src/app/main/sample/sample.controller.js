@@ -4,7 +4,7 @@
 
     angular
         .module('app.sample')
-        .controller('SampleController', function(Auth,$scope,$window,$state){
+        .controller('SampleController', function(Auth,$scope,$window,$state,Rols){
           var vm = this;
           vm.createUser = createUser;
           vm.deleteUser = deleteUser;
@@ -20,9 +20,13 @@
               then(function (firebaseUser) {
 
                   currentUser(firebaseUser);
-                 /* console.log('entro '+firebaseUser.uid);
+
+
+                  console.log('entro '+firebaseUser.uid);
                   console.log('entro '+firebaseUser.email);
-                  console.log('entro '+firebaseUser.credential);*/
+                  Rols.resultUserRol();
+
+
               }).catch(function(error) {
                 // Handle Errors here.
                 vm.message = error.code;
@@ -33,9 +37,19 @@
           function currentUser(firebaseUser) {
             $window.sessionStorage.currentUser = firebaseUser.uid;
             $window.sessionStorage.email = firebaseUser.email;
-            console.log($window.sessionStorage.currentUser);
-            console.log("c"+$window.sessionStorage.email);
-            $state.go('app.sample');
+            //if( $window.sessionStorage.currentUser!==null){
+
+              $state.go('app.sample');
+           // }
+
+           // Rols.resultUserRol();
+            //$window.sessionStorage.permision;
+            //console.log($window.sessionStorage.permision);
+            //console.log("c"+$window.sessionStorage.email);
+            //$window.sessionStorage.removeItem('permision');
+
+
+
           }
 
           function createUser() {

@@ -18,7 +18,7 @@
         .directive('msNavigationHorizontalItem', msNavigationHorizontalItemDirective);
 
     /** @ngInject */
-    function msNavigationServiceProvider()
+    function msNavigationServiceProvider($windowProvider)
     {
         // Inject $log service
         var $log = angular.injector(['ng']).get('$log');
@@ -41,8 +41,10 @@
          * @param path
          * @param item
          */
-        function saveItem(path, item)
+        function saveItem(path, item,modulo)
         {
+
+
             if ( !angular.isString(path) )
             {
                 $log.error('path must be a string (eg. `dashboard.project`)');
@@ -99,8 +101,36 @@
                 // Add proper ui-sref
                 item.uisref = _getUiSref(item);
 
-                // Push the item into the array
+
+
+
+              var $window = $windowProvider.$get();
+              var array = null;
+              var exists = false;
+              if(modulo=="auth"||modulo=="sample")
+              {
                 parent.push(item);
+              }
+              if($window.sessionStorage.getItem('permision')!=null){
+                array = $window.sessionStorage.getItem('permision').split(",");
+                //console.log($window.sessionStorage.getItem('permision'));
+                //exists = false;
+
+                angular.forEach(array,function (value,key) {
+                  if(value==modulo){
+                    exists = true;
+                  }
+                });
+
+                if(exists==true){
+                   parent.push(item);
+                }
+               
+              }
+              else if($window.sessionStorage.getItem('permision')==null){
+                array = null;
+              }
+
             }
         }
 

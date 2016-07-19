@@ -20,7 +20,7 @@
 
                     }
                 },
-              
+
                 resolve: {
                     SampleData: function (msApi)
                     {
@@ -51,6 +51,6 @@
              },*/
             translate: 'sammm',
             weight   : 1
-        });
+        },"sample");
     }
 })();

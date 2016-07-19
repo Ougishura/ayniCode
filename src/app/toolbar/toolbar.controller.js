@@ -118,6 +118,8 @@
         {
           $window.sessionStorage.removeItem('currentUser');
           console.log($window.sessionStorage.getItem('currentUser'));
+          $window.sessionStorage.removeItem('permision');
+          console.log($window.sessionStorage.getItem('permision'));
           Auth.$signOut()/*.then(function () {
             console.log("se fue");
 
@@ -125,7 +127,6 @@
             //console.log(error);
           });*/
           $location.url('/auth');
-
         }
 
         /**

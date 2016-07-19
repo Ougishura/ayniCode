@@ -9,6 +9,7 @@
     /** @ngInject */
     function config($stateProvider, $translatePartialLoaderProvider, msApiProvider, msNavigationServiceProvider)
     {
+      
 
         $stateProvider.state('app.contacts', {
             url    : '/contacts',
@@ -43,7 +44,7 @@
             icon  : 'icon-account-box',
             state : 'app.contacts',
             weight: 10
-        });
+        },"user");
 
     }
 

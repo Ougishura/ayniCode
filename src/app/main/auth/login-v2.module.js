@@ -36,7 +36,7 @@
       title : 'Login v2',
       state : 'app.pages_auth_login-v2',
       weight: 2
-    });
+    },"auth");
   }
 
 })();

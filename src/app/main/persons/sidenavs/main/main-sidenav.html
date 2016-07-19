@@ -1,0 +1,39 @@
+<!-- SIDENAV HEADER -->
+<div class="header md-padding titlef" layout="row" layout-align="start center">
+
+    <!-- TITLE -->
+     <p translate="PERSONS.FILTERS" class="Title_Filters" text-align="center">Filters</p>
+    <!-- / TITLE -->
+
+</div>
+<!-- / SIDENAV HEADER -->
+
+<md-divider></md-divider>
+
+<!-- SIDENAV CONTENT -->
+<div ms-scroll class="content">
+
+    <md-list>
+
+        <md-list-item ng-click="vm.filterChange('all')" ng-class="{'selected':vm.listType ==='all'}">
+            <p translate="PERSONS.ALL_PERSONS">
+                All persons
+            </p>
+        </md-list-item>
+
+        <md-list-item ng-click="vm.filterChange('external')" ng-class="{'selected':vm.listType ==='external'}">
+            <p translate="PERSONS.EXTERNAL">
+                External persons
+            </p>
+        </md-list-item>
+
+        <md-list-item ng-click="vm.filterChange('internal')" ng-class="{'selected':vm.listType ===''}">
+            <p translate="PERSONS.INTERNAL">
+                Internal person
+            </p>
+        </md-list-item>
+
+    </md-list>
+
+</div>
+<!-- / SIDENAV CONTENT -->

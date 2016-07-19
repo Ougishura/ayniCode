@@ -7,7 +7,7 @@
         .run(runBlock);
 
     /** @ngInject */
-    function runBlock($rootScope, $timeout, $state,$window,$location)
+    function runBlock($rootScope, $timeout, $state,$window,$location,Rols)
     {
       console.log($rootScope+ "  awdasdasda");
       $rootScope.$on('$stateChangeStart', function (event, toState, toParams) {
@@ -18,14 +18,16 @@
           //$state.go("app.auth");
 
           // get me a login modal!
-          console.log($window.sessionStorage.getItem('currentUser'));
-          console.log("no existe usuario");
-          $location.url('/auth');
+          //console.log($window.sessionStorage.getItem('currentUser'));
+          //console.log("no existe usuario");
+          //$location.url('/auth');
 
         }
         else{
-          console.log("existe usuario");
-          console.log($window.sessionStorage.getItem('currentUser'));
+          //Rols.resultUserRol();
+
+          //console.log("existe usuario");
+          //console.log($window.sessionStorage.getItem('currentUser'));
 
         }
       });

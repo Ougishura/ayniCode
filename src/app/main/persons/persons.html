@@ -1,0 +1,256 @@
+<div id="persons" class="page-layout simple left-sidenav inner-sidenav">
+
+  <!-- HEADER -->
+  <div class="header md-accent-bg" layout="row" layout-align="space-between center">
+
+    <!-- APP TITLE -->
+    <div layout="row" layout-align="start center">
+      <md-button class="md-icon-button sidenav-toggle" hide-gt-md ng-click="vm.toggleSidenav('sidenav')"
+                 aria-label="Toggle sidenav" translate translate-attr-aria-label="PERSONS.TOGGLE_SIDENAV">
+        <md-icon md-font-icon="icon-menu" class="icon"></md-icon>
+      </md-button>
+
+      <div class="logo" layout="row" layout-align="start center">
+                <span class="logo-icon">
+                    <md-icon md-font-icon="icon-account-box" class="s24"></md-icon>
+                </span>
+        <span class="logo-text" translate="PERSONS.PERSONS">Persons</span>
+      </div>
+    </div>
+    <!-- / APP TITLE -->
+
+    <!-- SEARCH -->
+    <div class="search-input-wrapper" layout="row" layout-align="start center">
+      <label for="search">
+        <md-icon md-font-icon="icon-magnify"></md-icon>
+      </label>
+      <md-input-container md-no-float class="m-0">
+        <input id="search" placeholder="Search for anyone" type="text" ng-model="vm.search" translate
+               translate-attr-placeholder="PERSONS.SEARCH_FOR_ANYONE">
+      </md-input-container>
+    </div>
+    <!-- / SEARCH -->
+
+  </div>
+  <!-- / HEADER -->
+
+  <!-- SELECTED BAR -->
+  <div ng-show="vm.selectedPersons.length > 0" class="selected-bar header animate-slide-down md-accent-bg"
+       layout="row" layout-align="start center">
+
+    <div class="close-button-wrapper" ng-click="vm.selectedPersons =[]">
+      <md-button layout="row" layout-align="start center">
+        <md-icon md-font-icon="icon-arrow-left" class="mr-8"></md-icon>
+        <span translate="PERSONS.BACK">Back</span>
+      </md-button>
+    </div>
+
+    <div flex layout="row" layout-align="space-between center">
+
+      <div>
+                <span class="selected-persons-count">
+                    <span>{{vm.selectedPersons.length}}</span>
+                    <span translate="PERSONS.SELECTED">selected</span>
+                </span>
+
+        <md-menu class="select-menu" ng-if="!vm.currentThread">
+          <md-button class="md-icon-button"
+                     ng-click="$mdOpenMenu($event)"
+                     aria-label="multi select toggle"
+                     translate translate-attr-aria-label="PERSONS.MULTI_SELECT_TOGGLE">
+            <md-icon md-font-icon="icon-menu-down"></md-icon>
+          </md-button>
+          <md-menu-content width="3">
+            <md-menu-item>
+              <md-button ng-click="vm.selectAllPersons()" translate="PERSONS.SELECT_ALL">
+                Select all
+              </md-button>
+            </md-menu-item>
+            <md-menu-item>
+              <md-button ng-click="vm.deselectPersons()" translate="PERSONS.SELECT_NONE">
+                Select none
+              </md-button>
+            </md-menu-item>
+          </md-menu-content>
+        </md-menu>
+      </div>
+
+      <div class="multi-select-actions">
+        <md-button class="md-icon-button" ng-click="vm.deleteSelectedPersons($event)"
+                   aria-label="delete selected" translate translate-attr-label="PERSONS.DELETE_SELECTED">
+          <md-icon md-font-icon="icon-delete"></md-icon>
+        </md-button>
+      </div>
+
+    </div>
+
+  </div>
+  <!-- / SELECTED BAR -->
+
+  <!-- CONTENT -->
+  <div class="content" md-background-bg layout="row" layout-align="start start">
+
+    <!-- SIDENAV -->
+    <md-sidenav class="sidenav main-sidenav md-white-bg" ms-scroll md-is-locked-open="$mdMedia('gt-md')"
+                md-component-id="sidenav"
+                ms-sidenav-helper ng-include="'app/main/persons/sidenavs/main/main-sidenav.html'">
+    </md-sidenav>
+    <!-- / SIDENAV -->
+
+    <!-- MAIN -->
+    <div class="main" ms-scroll>
+
+      <!-- PERSON LIST -->
+      <md-list class="persons-list">
+
+        <!-- PERSON LIST HEADER -->
+        <md-subheader class="md-no-sticky md-white-bg">
+
+          <div layout="row" layout-align="space-between center">
+
+            <div class="list-title" layout="row" layout-align="start center"
+                 ng-hide="editGroupForm.$visible">
+              <span ng-if="vm.listType === 'all'" translate="PERSONS.ALL_PERSONS">All persons</span>
+              <span ng-if="vm.listType === 'external'" translate="PERSONS.EXTERNAL">External persons</span>
+              <span ng-if="vm.listType === 'internal'" translate="PERSONS.INTERNAL">Internal persons</span>
+              <span ng-if="vm.listType.name">{{vm.listType.name}}</span>
+              <span ng-if="filteredPersons.length" class="secondary-text persons-count">({{filteredPersons.length}})</span>
+              <span ng-if="filteredPersonsAll.length && vm.listType === 'all'" class="secondary-text persons-count">({{filteredPersonsAll.length}})</span>
+              <span ng-if="filteredPersonsExternal.length && vm.listType === 'external'" class="secondary-text persons-count">({{filteredPersonsExternal.length}})</span>
+              <span ng-if="filteredPersonsInternal.length && vm.listType === 'internal'" class="secondary-text persons-count">({{filteredPersonsInternal.length}})</span>
+            </div>
+
+            <div flex></div>
+
+            <md-menu>
+
+              <md-button class="md-icon-button" aria-label="Sort" translate
+                         translate-attr-aria-label="PERSONS.SORT">
+                <md-icon md-font-icon="icon-sort-alphabetical"
+                         ng-click="$mdOpenMenu($event)"></md-icon>
+              </md-button>
+
+              <md-menu-content width="3">
+
+                <md-menu-item>
+                  <md-button ng-click="vm.listOrder = 'name';vm.listOrderAsc = false"
+                             ng-style="vm.listOrder === 'name' && vm.listOrderAsc=== false && {'font-weight':'500'}">
+                    <span translate="PERSONS.FIRST_NAME">First Name</span>
+                    <small translate="PERSONS.A_TO_Z">(A to Z)</small>
+                  </md-button>
+                </md-menu-item>
+
+                <md-menu-item>
+                  <md-button ng-click="vm.listOrder = 'name'; vm.listOrderAsc = true"
+                             ng-style="vm.listOrder === 'name' && vm.listOrderAsc=== true && {'font-weight':'500'}">
+                    <span translate="PERSONS.FIRST_NAME">First Name</span>
+                    <small translate="PERSONS.Z_TO_A">(Z to A)</small>
+                  </md-button>
+                </md-menu-item>
+
+                <md-menu-item>
+                  <md-button ng-click="vm.listOrder = 'lastName';vm.listOrderAsc = false"
+                             ng-style="vm.listOrder === 'lastName' && vm.listOrderAsc=== false && {'font-weight':'500'}">
+                    <span translate="PERSONS.LAST_NAME">Last Name</span>
+                    <small translate="PERSONS.A_TO_Z">(A to Z)</small>
+                  </md-button>
+                </md-menu-item>
+
+                <md-menu-item>
+                  <md-button ng-click="vm.listOrder = 'lastName'; vm.listOrderAsc = true"
+                             ng-style="vm.listOrder === 'lastName' && vm.listOrderAsc=== true && {'font-weight':'500'}">
+                    <span translate="PERSONS.LAST_NAME">Last Name</span>
+                    <small translate="PERSONS.Z_TO_A">(Z to A)</small>
+                  </md-button>
+                </md-menu-item>
+
+              </md-menu-content>
+
+            </md-menu>
+
+          </div>
+
+        </md-subheader>
+        <!-- / PERSON LIST HEADER -->
+
+        <!-- PERSON ITEM ALL -->
+        <md-list-item class="person-item md-white-bg" md-ink-ripple ng-show="vm.filterIds==='all'"
+                      ng-repeat="person in vm.allPersons | filter: vm.search | filter: global.search |  orderBy: vm.listOrder :vm.listOrderAsc | filter:query as filteredPersonsAll track by person.id "
+                      ng-if="vm.filterIds === 'all'"
+                      ng-click="vm.openPersonDialog($event, person)"
+                      ng-style="{'transform': 'translate3d(0px, '+$index * 100+'%, 0px)', 'z-index': filteredPersonsAll.length - $index}"
+                      ng-class="{'selected': vm.isSelected(person)}">
+
+          <md-checkbox ng-checked="vm.exists(person, vm.selectedPersons)"
+                       ng-click="vm.toggleSelectPerson(person, $event)"
+                       aria-label="{{vm.exists(person, vm.selectedPersons) ? 'Deselect' : 'Select'}}">
+          </md-checkbox>
+
+          <p class="text-truncate font-weight-600">{{person.nroDocument}}</p>
+          <p class="text-truncate font-weight-600">{{person.name + " "+ person.middleName+ " " +person.lastName}}</p>
+          <p class="text-truncate font-weight-600">{{person.address}}</p>
+          <p class="text-truncate font-weight-600">{{person.phoneNumber}}</p>
+        </md-list-item>
+        <!-- PERSON ITEM EXTERNAL-->
+
+        <md-list-item class="person-item md-white-bg" md-ink-ripple ng-show="vm.filterIds==='external'"  ng-if="vm.filterIds === 'external'"
+                    ng-repeat="person in vm.externalPersons | filter: vm.search | filter: global.search |  orderBy: vm.listOrder :vm.listOrderAsc | filter:query as filteredPersonsExternal track by person.id "
+
+                    ng-click="vm.openPersonDialog($event, person)"
+                    ng-style="{'transform': 'translate3d(0px, '+$index * 100+'%, 0px)', 'z-index': filteredPersonsExternal.length - $index}"
+                    ng-class="{'selected': vm.isSelected(person)}">
+
+        <md-checkbox ng-checked="vm.exists(person, vm.selectedPersons)"
+                     ng-click="vm.toggleSelectPerson(person, $event)"
+                     aria-label="{{vm.exists(person, vm.selectedPersons) ? 'Deselect' : 'Select'}}">
+        </md-checkbox>
+
+        <p class="text-truncate font-weight-600">{{person.nroDocument}}</p>
+        <p class="text-truncate font-weight-600">{{person.name + " "+ person.middleName+ " " +person.lastName}}</p>
+        <p class="text-truncate font-weight-600">{{person.address}}</p>
+        <p class="text-truncate font-weight-600">{{person.phoneNumber}}</p>
+
+      </md-list-item>
+        <!-- PERSON ITEM INTERNAL-->
+
+        <md-list-item class="person-item md-white-bg" md-ink-ripple ng-show="vm.filterIds==='internal'"  ng-if="vm.filterIds === 'internal'"
+                    ng-repeat="person in vm.internalPersons | filter: vm.search | filter: global.search |  orderBy: vm.listOrder :vm.listOrderAsc | filter:query as filteredPersonsInternal track by person.id "
+                    ng-click="vm.openPersonDialog($event, person)"
+                    ng-style="{'transform': 'translate3d(0px, '+$index * 100+'%, 0px)', 'z-index': filteredPersonsInternal.length - $index}"
+                    ng-class="{'selected': vm.isSelected(person)}">
+
+        <md-checkbox ng-checked="vm.exists(person, vm.selectedPersons)"
+                     ng-click="vm.toggleSelectPerson(person, $event)"
+                     aria-label="{{vm.exists(person, vm.selectedPersons) ? 'Deselect' : 'Select'}}">
+        </md-checkbox>
+
+        <p class="text-truncate font-weight-600">{{person.nroDocument}}</p>
+        <p class="text-truncate font-weight-600">{{person.name + " "+ person.middleName+ " " +person.lastName}}</p>
+        <p class="text-truncate font-weight-600">{{person.address}}</p>
+        <p class="text-truncate font-weight-600">{{person.phoneNumber}}</p>
+
+      </md-list-item>
+      </md-list>
+
+      <!-- / PERSON LIST -->
+
+      <!-- NO RESULTS -->
+      <md-list-item class="no-results md-white-bg" ng-show="filteredPersons.length === 0">
+        <p translate="PERSONS.NO_RESULTS">No results..</p>
+      </md-list-item>
+      <!-- / NO RESULTS -->
+
+    </div>
+    <!-- / MAIN -->
+
+  </div>
+  <!-- / CONTENT -->
+
+  <!-- ADD PERSON BUTTON -->
+  <md-button class="md-fab md-accent md-icon-button" id="add-person-button" ng-click="vm.openPersonDialog($event)"
+             aria-label="add person" translate translate-attr-aria-label="PERSONS.ADD_PERSON">
+    <md-icon md-font-icon="icon-account-plus"></md-icon>
+  </md-button>
+  <!-- / ADD PERSON BUTTON -->
+
+</div>

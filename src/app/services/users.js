@@ -8,6 +8,7 @@
     .module('fuse')
     .factory("Usuarios",function ($firebaseArray,$firebaseObject,pharmacyFactory,Auth) {
       var idUser = null;
+      var idUser2 = null;
 
       var results = null;
       var selectedUser = null;
@@ -20,6 +21,15 @@
         },
         saveUsers :function (usuario) {
           var ref = null;
+
+          Auth.$createUserWithEmailAndPassword(usuario.email,usuario.password)
+            .then(function(firebaseUser) {
+
+              idUser2 = firebaseUser.uid;
+              console.log("el id es "+idUser2)
+            }).catch(function(error) {
+            console.log("Error aqui:"+error);
+          });
 
           if(idUser!=null){
             ref = pharmacyFactory.ref.child("users");
@@ -43,7 +53,7 @@
              console.log(error);
             });
 
-            Auth.$updatePassword("arca.ac.hotmail.com").then(function () {
+            Auth.$updatePassword("arca.ac@hotmail.com").then(function () {
 
             });
           }else{
@@ -58,19 +68,11 @@
               "phoneNumber":usuario.phoneNumber,
               "email":usuario.email
             },function (response) {
-              idUser=selectedUser.key;
+              idUser=selectedUser;
               selectedUser.update({
-                id : selectedUser.key
+                id : idUser2
               });
             });
-
-            Auth.$createUserWithEmailAndPassword(usuario.email,usuario.password)
-              .then(function(firebaseUser) {
-               console.log("User created with uid: " + firebaseUser.uid);
-              }).catch(function(error) {
-                console.log("Error aqui:"+error);
-            });
-
 
 
             return
@@ -82,6 +84,24 @@
             idUser = usuario.id;
           else
             idUser =null;
+        },
+        pruebaRol : function () {
+
+          var ref = pharmacyFactory.ref.child("users").child("Ponce");
+          var result = $firebaseObject(ref);
+          console.log(result);
+          /*
+          var ref3 = pharmacyFactory.ref.child('users').child('roles').on('value', function(keys) {
+            keys.foreach(function(keysnapshot) {
+              ref.child('project-7064055042611230446').child(keysnapshot.ref().key()).once('value', function(propertysnapshot) {
+                if(propertysnapshot.val()!=null){
+                  console.log(propertysnapshot.val().description);
+                }else{
+                  console.log("ptm");
+                }
+              });
+            });
+          })*/
         },
         deleteUser : function (usuario) {
 

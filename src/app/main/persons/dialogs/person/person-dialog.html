@@ -1,0 +1,109 @@
+<!-- DIALOG -->
+<md-dialog class="person-dialog" aria-label="New Task">
+
+  <form name="personForm" class="md-inline-form" novalidate>
+    <!-- / DIALOG TOOLBAR -->
+
+    <!-- DIALOG CONTENT -->
+    <md-dialog-content ms-scroll>
+
+      <md-input-container class="md-icon-float md-block">
+        <label translate="PERSONS.NRO_DOCUMENT"></label>
+        <input ng-model="vm.person.nroDocument" type="text">
+      </md-input-container>
+
+      <md-input-container class="md-icon-float md-block">
+        <label translate="PERSONS.NAME_REQUIRED"></label>
+        <input ng-model="vm.person.name" type="text" >
+      </md-input-container>
+
+      <md-input-container class="md-icon-float md-block">
+        <label translate="PERSONS.MIDDLE_NAME"></label>
+
+        <input ng-model="vm.person.middleName" type="text">
+      </md-input-container>
+
+      <md-input-container class="md-icon-float md-block">
+        <label translate="PERSONS.LAST_NAME"></label>
+
+        <input ng-model="vm.person.lastName" type="text">
+      </md-input-container>
+
+      <md-input-container class="md-icon-float md-block containerbottom">
+        <label translate="PERSONS.SECOND_LAST_NAME"></label>
+
+        <input ng-model="vm.person.secondLastName" type="text">
+      </md-input-container>
+
+      <div layout="row">
+        <div id="left"><label id="labelexternal" translate="PERSONS.EXTERNAL_SWITCH"></label></div>
+        <div id="right"><md-checkbox layout-align="1100px" ng-model="vm.person.external"  id="check">
+        </md-checkbox></div>
+      </div>
+
+      <div ng-if="!vm.allFields" layout="row" layout-align="center center">
+        <md-button class="md-accent" ng-click="vm.allFields = true" translate="PERSONS.SHOW_ALL_FIELDS">Show
+          All Fields
+        </md-button>
+      </div>
+
+      <div ng-if="vm.allFields">
+
+        <md-input-container class="md-block">
+          <label translate="PERSONS.ADDRESS"></label>
+          <md-icon md-font-icon="icon-home"></md-icon>
+          <input ng-model="vm.person.address" type="text">
+        </md-input-container>
+
+        <md-input-container class="md-block">
+          <label translate="PERSONS.PHONE_NUMBER"></label>
+          <md-icon md-font-icon="icon-phone"></md-icon>
+          <input ng-model="vm.person.phoneNumber" type="text">
+        </md-input-container>
+
+        <div layout="row" layout-align="center center" style="height:50px">
+          <md-button class="md-accent" ng-click="vm.allFields = false" translate="PERSONS.FEWER_FIELDS">Fewer
+            Fields
+          </md-button>
+        </div>
+
+      </div>
+
+    </md-dialog-content>
+    <!-- / DIALOG CONTENT -->
+
+    <!-- DIALOG ACTIONS -->
+    <md-dialog-actions layout="row" layout-align="space-between center">
+      <div layout="row" layout-align="start center">
+        <md-button type="submit" ng-if="!vm.newPerson" ng-click="vm.savePerson()"
+                   class="send-button md-accent md-raised"
+                   ng-disabled="personForm.$invalid || personForm.$pristine"
+                   aria-label="SAVE" translate="PERSONS.SAVE" translate-attr-aria-label="PERSONS.SAVE">
+          SAVE
+        </md-button>
+
+        <md-button type="submit" ng-if="vm.newPerson" ng-click="vm.addNewPerson()"
+                   class="send-button md-accent md-raised"
+                   ng-disabled="personForm.$invalid || personForm.$pristine"
+                   aria-label="Add Task" translate="PERSONS.ADD_PERSON"
+                   translate-attr-aria-label="PERSONS.ADD_PERSON">
+          ADD PERSON
+        </md-button>
+
+      </div>
+
+      <div layout="row">
+        <md-button class="md-icon-button" ng-click="vm.deletePersonConfirm($event)" aria-label="Delete"
+                   translate
+                   translate-attr-aria-label="PERSONS.DELETE">
+          <md-icon md-font-icon="icon-delete"></md-icon>
+          <md-tooltip><span translate="PERSONS.DELETE">DELETE</span></md-tooltip>
+        </md-button>
+      </div>
+    </md-dialog-actions>
+    <!-- / DIALOG ACTIONS -->
+
+  </form>
+
+</md-dialog>
+<!-- / DIALOG -->
