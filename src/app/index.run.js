@@ -20,7 +20,7 @@
           // get me a login modal!
           //console.log($window.sessionStorage.getItem('currentUser'));
           //console.log("no existe usuario");
-          //$location.url('/auth');
+         // $location.url('/auth');
 
         }
         else{

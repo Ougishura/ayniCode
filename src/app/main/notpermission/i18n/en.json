@@ -1,0 +1,6 @@
+{
+    "NOTPERMISSION": {
+        "CODE": "ACCESO DENEGADO",
+        "MESSAGE": "Lo siento, no tiene permisos para ver esta sección"
+    }
+}

@@ -10,14 +10,41 @@
     .config(config);
 
   /** @ngInject */
-  function config($stateProvider, $translatePartialLoaderProvider, msNavigationServiceProvider)
+  function config($stateProvider, $translatePartialLoaderProvider, msNavigationServiceProvider,$windowProvider)
   {
 
     $stateProvider.state('app.persons', {
       url    : '/persons',
       views  : {
         'content@app': {
-          templateUrl: 'app/main/persons/persons.html',
+          templateUrl: function () {
+
+            var $window = $windowProvider.$get();
+            var array = null;
+            var exists = false;
+
+            if($window.sessionStorage.getItem('permision')!=null){
+              array = $window.sessionStorage.getItem('permision').split(",");
+
+              angular.forEach(array,function (value,key) {
+                if(value=="persons"){
+                  exists = true;
+                }
+              });
+
+              if(exists==true){
+                return 'app/main/persons/persons.html';
+              }
+              else{
+                return 'app/main/notpermission/notpermission.html';
+              }
+
+            }
+            else if($window.sessionStorage.getItem('permision')==null){
+              array = null;
+            }
+
+          },
           controller : 'PersonsController as vm'
         }
       }
